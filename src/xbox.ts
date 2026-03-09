@@ -4,8 +4,11 @@ interface XboxTitle {
   titleId: string;
   name: string;
   type: string;
-  lastTimePlayed?: string;
   displayImage?: string;
+  titleHistory?: {
+    lastTimePlayed: string;
+    visible: boolean;
+  };
   achievement?: {
     currentGamerscore: number;
     totalGamerscore: number;
@@ -35,13 +38,6 @@ export async function fetchXboxGames(config: XboxConfig): Promise<Game[]> {
   }
 
   const data: XboxTitleHistoryResponse = await res.json();
-  console.log(`   OpenXBL returned ${data.titles?.length ?? 0} total titles`);
-  if (data.titles?.length) {
-    // Dump first title's keys and values for debugging
-    const sample = data.titles[0]!;
-    console.log(`   Sample title keys: ${Object.keys(sample).join(", ")}`);
-    console.log(`   Sample title: ${JSON.stringify(sample, null, 2)}`);
-  }
   if (!data.titles?.length) {
     return [];
   }
@@ -51,16 +47,16 @@ export async function fetchXboxGames(config: XboxConfig): Promise<Game[]> {
 
   return data.titles
     .filter((title) => {
-      // Only include titles played in the last 2 weeks to match Steam's window
-      if (!title.lastTimePlayed) return false;
-      const lastPlayed = new Date(title.lastTimePlayed).getTime();
-      return now - lastPlayed <= twoWeeksMs;
+      if (title.type !== "Game") return false;
+      const lastPlayed = title.titleHistory?.lastTimePlayed;
+      if (!lastPlayed) return false;
+      return now - new Date(lastPlayed).getTime() <= twoWeeksMs;
     })
     .map((title) => ({
       name: title.name,
-      playtimeRecent: 0, // Xbox API doesn't expose playtime
+      playtimeRecent: 0,
       playtimeForever: 0,
-      lastPlayed: title.lastTimePlayed,
+      lastPlayed: title.titleHistory?.lastTimePlayed,
       platform: "xbox" as const,
     }))
     .slice(0, 10);
