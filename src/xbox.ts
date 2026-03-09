@@ -35,6 +35,13 @@ export async function fetchXboxGames(config: XboxConfig): Promise<Game[]> {
   }
 
   const data: XboxTitleHistoryResponse = await res.json();
+  console.log(`   OpenXBL returned ${data.titles?.length ?? 0} total titles`);
+  if (data.titles?.length) {
+    // Log first few titles for debugging
+    for (const t of data.titles.slice(0, 3)) {
+      console.log(`   - "${t.name}" type=${t.type} lastPlayed=${t.lastTimePlayed}`);
+    }
+  }
   if (!data.titles?.length) {
     return [];
   }
