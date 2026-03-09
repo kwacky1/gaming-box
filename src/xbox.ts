@@ -24,7 +24,8 @@ export async function fetchXboxGames(config: XboxConfig): Promise<Game[]> {
   const res = await fetch("https://xbl.io/api/v2/player/titleHistory", {
     headers: {
       "X-Authorization": config.apiKey,
-      Accept: "application/json",
+      "Accept": "application/json",
+      "Accept-Language": "en-AU",
     },
   });
 
