@@ -38,8 +38,8 @@ function makeBar(ratio: number, length: number): string {
 }
 
 /**
- * Merges games from all platforms, sorts by recent playtime (Steam first,
- * then Xbox by last played date), and formats into a gist-friendly string.
+ * Merges games from all platforms, deduplicates by name (preferring
+ * the entry with playtime data), sorts, and formats for the gist.
  */
 export function formatGames(games: Game[]): { title: string; content: string } {
   if (games.length === 0) {
@@ -49,8 +49,20 @@ export function formatGames(games: Game[]): { title: string; content: string } {
     };
   }
 
+  // Deduplicate: if the same game appears on both platforms, keep the
+  // one with playtime data (Steam), since Xbox doesn't provide hours.
+  const seen = new Map<string, Game>();
+  for (const game of games) {
+    const key = game.name.toLowerCase();
+    const existing = seen.get(key);
+    if (!existing || game.playtimeRecent > existing.playtimeRecent) {
+      seen.set(key, game);
+    }
+  }
+  const deduped = [...seen.values()];
+
   // Sort: Steam games by playtime desc, then Xbox games by lastPlayed desc
-  const sorted = [...games].sort((a, b) => {
+  const sorted = [...deduped].sort((a, b) => {
     // Games with playtime data come first (sorted by playtime)
     if (a.playtimeRecent > 0 && b.playtimeRecent > 0) {
       return b.playtimeRecent - a.playtimeRecent;
