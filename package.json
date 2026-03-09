@@ -1,0 +1,23 @@
+{
+  "name": "gaming-box",
+  "version": "1.0.0",
+  "description": "🎮 Update a pinned gist to show your recently played games across Steam and Xbox",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js"
+  },
+  "keywords": ["pinned-gist", "gaming", "steam", "xbox", "github-profile"],
+  "author": "kwacky1",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^25.3.5",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@octokit/rest": "^22.0.1",
+    "dotenv": "^17.3.1"
+  }
+}
