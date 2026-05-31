@@ -1,15 +1,23 @@
 import "dotenv/config";
+import { resolve } from "node:path";
 import { fetchSteamGames } from "./steam.js";
 import { fetchXboxGames } from "./xbox.js";
 import { formatGames } from "./format.js";
 import { updateGist } from "./gist.js";
+import { exportJson } from "./export.js";
 import { Game, SteamConfig, XboxConfig, GistConfig } from "./types.js";
 
+const jsonMode = process.argv.includes("--json");
+
 async function main(): Promise<void> {
-  const gistConfig: GistConfig = {
-    token: requireEnv("GH_TOKEN"),
-    gistId: requireEnv("GIST_ID"),
-  };
+  // Gist config is only required when not in --json mode
+  let gistConfig: GistConfig | undefined;
+  if (!jsonMode) {
+    gistConfig = {
+      token: requireEnv("GH_TOKEN"),
+      gistId: requireEnv("GIST_ID"),
+    };
+  }
 
   const allGames: Game[] = [];
 
@@ -52,11 +60,16 @@ async function main(): Promise<void> {
     );
   }
 
-  // Merge, format, and update gist
+  // Merge, format, and update gist (or export JSON)
   const { title, content } = formatGames(allGames);
   console.log(`\n${title}\n${content}\n`);
 
-  await updateGist(gistConfig, title, content);
+  if (jsonMode) {
+    const outputPath = resolve("dist", "gaming-data.json");
+    exportJson(allGames, outputPath);
+  } else {
+    await updateGist(gistConfig!, title, content);
+  }
 }
 
 function requireEnv(name: string): string {

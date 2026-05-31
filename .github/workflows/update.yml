@@ -8,6 +8,8 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
@@ -31,3 +33,20 @@ jobs:
           STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
           STEAM_ID: ${{ secrets.STEAM_ID }}
           OPENXBL_API_KEY: ${{ secrets.OPENXBL_API_KEY }}
+
+      - name: Export gaming data JSON
+        run: npm run export
+        env:
+          STEAM_API_KEY: ${{ secrets.STEAM_API_KEY }}
+          STEAM_ID: ${{ secrets.STEAM_ID }}
+          OPENXBL_API_KEY: ${{ secrets.OPENXBL_API_KEY }}
+
+      - name: Commit gaming-data.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/gaming-data.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update gaming-data.json"
+            git push
+          fi

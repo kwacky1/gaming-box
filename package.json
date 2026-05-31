@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
+    "export": "node dist/index.js --json",
     "dev": "tsc && node dist/index.js"
   },
   "keywords": ["pinned-gist", "gaming", "steam", "xbox", "github-profile"],
