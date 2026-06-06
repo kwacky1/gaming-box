@@ -1,16 +1,10 @@
 {
-  "updatedAt": "2026-06-06T07:07:09.875Z",
+  "updatedAt": "2026-06-06T12:30:21.572Z",
   "games": [
     {
       "name": "Sweet Transit",
-      "playtimeRecent": 1769,
-      "playtimeForever": 14304,
-      "platform": "steam"
-    },
-    {
-      "name": "Dead as Disco Demo",
-      "playtimeRecent": 1,
-      "playtimeForever": 20,
+      "playtimeRecent": 1751,
+      "playtimeForever": 14361,
       "platform": "steam"
     }
   ]
