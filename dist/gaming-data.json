@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-07-08T06:52:03.666Z",
+  "updatedAt": "2026-07-08T12:36:04.982Z",
   "games": [
     {
       "name": "Sweet Transit",
-      "playtimeRecent": 3037,
-      "playtimeForever": 20723,
+      "playtimeRecent": 3015,
+      "playtimeForever": 20776,
       "platform": "steam"
     }
   ]
