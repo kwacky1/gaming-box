@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-09-04T06:20:05.117Z",
+  "updatedAt": "2026-09-04T12:14:26.930Z",
   "games": [
     {
       "name": "Satisfactory",
-      "playtimeRecent": 12648,
-      "playtimeForever": 51280,
+      "playtimeRecent": 12606,
+      "playtimeForever": 51551,
       "platform": "steam"
     }
   ]
