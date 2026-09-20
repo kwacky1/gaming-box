@@ -1,16 +1,10 @@
 {
-  "updatedAt": "2026-09-20T06:14:52.001Z",
+  "updatedAt": "2026-09-20T12:12:47.718Z",
   "games": [
     {
       "name": "Satisfactory",
-      "playtimeRecent": 6669,
+      "playtimeRecent": 6595,
       "playtimeForever": 59829,
-      "platform": "steam"
-    },
-    {
-      "name": "Project Zomboid",
-      "playtimeRecent": 72,
-      "playtimeForever": 3067,
       "platform": "steam"
     }
   ]
