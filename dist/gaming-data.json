@@ -1,12 +1,6 @@
 {
-  "updatedAt": "2026-09-30T06:17:45.110Z",
+  "updatedAt": "2026-09-30T12:16:09.531Z",
   "games": [
-    {
-      "name": "Satisfactory",
-      "playtimeRecent": 126,
-      "playtimeForever": 59829,
-      "platform": "steam"
-    },
     {
       "name": "Slow Roads",
       "playtimeRecent": 91,
