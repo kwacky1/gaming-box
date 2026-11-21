@@ -1,4 +1,11 @@
 {
-  "updatedAt": "2026-11-21T06:09:37.582Z",
-  "games": []
+  "updatedAt": "2026-11-21T12:08:01.061Z",
+  "games": [
+    {
+      "name": "Crusader Kings III",
+      "playtimeRecent": 101,
+      "playtimeForever": 101,
+      "platform": "steam"
+    }
+  ]
 }
